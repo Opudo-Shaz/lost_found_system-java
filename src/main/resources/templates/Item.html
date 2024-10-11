@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Lost and Found</title>
+</head>
+<body>
+<h1>Lost and Found Items</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Location</th>
+        <th>Contact</th>
+    </tr>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.description}"></td>
+        <td th:text="${item.status}"></td>
+        <td th:text="${item.location}"></td>
+        <td th:text="${item.contactInfo}"></td>
+    </tr>
+</table>
+
+<h2>Add New Item</h2>
+<form action="#" th:action="@{/items}" th:object="${item}" method="post">
+    <input type="text" placeholder="Name" th:field="*{name}" required />
+    <input type="text" placeholder="Description" th:field="*{description}" />
+    <input type="text" placeholder="Status" th:field="*{status}" required />
+    <input type="text" placeholder="Location" th:field="*{location}" />
+    <input type="text" placeholder="Contact Info" th:field="*{contactInfo}" />
+    <button type="submit">Add Item</button>
+</form>
+</body>
+</html>
