@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/head :: head}">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4">Lost Items</h1>
+    <a href="/lost-items/post-lost-item" class="btn btn-primary">Add Lost Item</a>
+    <table class="table table-responsive table-striped">
+        <thead class="table-info">
+        <tr>
+            <th>Item Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Location Lost</th>
+            <th>Owner Contact</th>
+            <th>Date Lost</th>
+            <th>Claimed</th>
+            <th>Actions</th> <!-- New column for actions -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.name}">Item Name</td>
+            <td th:text="${item.description}">Description</td>
+            <td th:text="${item.category}">Category</td>
+            <td th:text="${item.locationLost}">Location Lost</td>
+            <td th:text="${item.ownerContact}">Owner Contact</td>
+            <td th:text="${item.dateLost}">Date Lost</td>
+            <td>
+                <h5>
+                    <span th:if="${item.isClaimed != null and item.isClaimed}" class="badge bg-success rounded-pill">Yes</span>
+                    <span th:if="${item.isClaimed == null or !item.isClaimed}" class="badge bg-info bg-lg rounded-pill">No</span>
+                </h5>
+            </td>
+
+            <td>
+                <div class="btn-group" role="group">
+                        <div class="d-flex">
+                            <a th:href="@{'/lost-items/view-lost-item/' + ${item.id}}" class="btn btn-info btn-sm me-3">View</a>
+                            <a th:href="@{'/lost-items/edit-lost-item/' + ${item.id}}" class="btn btn-warning btn-sm me-3">Edit</a>
+                            <a th:href="@{'/lost-items/delete-lost-item/' + ${item.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
+                        </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div th:replace="~{fragments/landing-footer :: landing-footer}"></div>
+
+</body>
+</html>
