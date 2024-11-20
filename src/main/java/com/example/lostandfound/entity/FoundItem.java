@@ -1,5 +1,6 @@
 package com.example.lostandfound.entity;
 
+import com.example.lostandfound.enums.FoundItemStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,24 +21,27 @@ public class FoundItem extends Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime foundDate;
-    private String Item_holder_name;
-
+    private String ItemHolderName;
     private String locationFound;
     private String finderContact;
     private String dateFound;
-    private Boolean isClaimed = false;
-    private String claimed_by;
-    private String note;
-    private String imagePath;
-    private String receiptPath;
+    private String claimedBy;
+    private String finderEmail;
+    private String claimerContact;
+    private String claimerNote;
+    private String finderImages;
+    private String claimerImages;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private FoundItemStatus status = FoundItemStatus.UNCLAIMED; // Default status is UNCLAIMED
 
 
-    public boolean isClaimed() {
-        return isClaimed;
+    public Long getItemId() {
+
+        return id;
     }
 
-    public void setClaimed(boolean claimed) {
-        this.isClaimed = claimed;
-    }
+
 
 }

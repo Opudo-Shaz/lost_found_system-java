@@ -3,6 +3,7 @@
 <head th:replace="~{fragments/head :: head}"></head>
 
 <body>
+<div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
     <h1 class="mt-4">Post Lost Item</h1>
 
@@ -40,6 +41,11 @@
             <input type="text" id="ownerContact" class="form-control" th:field="*{ownerContact}" placeholder="Enter Contact Information">
         </div>
 
+        <div class="form-group">
+            <label for="ownerEmail">Finders Email Address</label>
+            <input type="text" id="ownerEmail" class="form-control" th:field="*{ownerEmail}" placeholder="Enter Your Email Address">
+        </div>
+
         <!-- Date Lost -->
         <div class="form-group">
             <label for="dateLost">Date Lost</label>
@@ -63,7 +69,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Post Lost Item</button>
+        <button type="submit" class="btn btn-primary m-2">Post Lost Item</button>
     </form>
 
     <!-- Button to go back to the lost items list -->

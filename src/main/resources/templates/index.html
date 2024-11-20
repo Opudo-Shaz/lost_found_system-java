@@ -6,22 +6,24 @@
 <div th:replace="~{fragments/header :: header}"></div>
 <main class="main">
 
+
     <!-- Hero Section -->
-    <section class="hero section bg-dark text-light py-5">
-        <!-- Background Image -->
-        <div class="hero-bg" style="background-image: url('@{/img/hero-bg.jpg}');">
-            <!-- Content Overlay -->
-            <div class="container text-center">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <h2>Welcome to  Patika Lost and Found</h2>
-                        <p>Your go-to platform for lost and found items.</p>
-                        <a th:href="@{/lost-items}" class="btn btn-primary btn-lg">Browse Lost Items</a>
-                    </div>
+    <section id="hero" class="hero section dark-background">
+
+
+        <img th:src="@{/img/hero-bg.jpg}" alt="" data-aos="fade-in">
+
+        <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2>Welcome to  Patika Lost and Found</h2>
+                    <p>Your go-to platform for lost and found items.</p>
+                    <a th:href="@{/lost-items}" class="btn btn-primary btn-lg">Browse Lost Items</a>
                 </div>
             </div>
         </div>
-    </section>
+
+    </section><!-- /Hero Section -->
 
 </main>
 <main>
@@ -171,7 +173,7 @@
                         <div class="icon">
                             <i class="bi bi-flag"></i>
                         </div>
-                        <a href="/report-lost-item" class="stretched-link">
+                        <a href="/post-lost-item" class="stretched-link">
                             <h3>Report a Lost Item</h3>
                         </a>
                         <p>Lost something important? Report it to our system and help us reunite you with your belongings.</p>
@@ -184,7 +186,7 @@
                         <div class="icon">
                             <i class="bi bi-search"></i>
                         </div>
-                        <a href="/browse-found-items" class="stretched-link">
+                        <a href="/found-items" class="stretched-link">
                             <h3>Browse Found Items</h3>
                         </a>
                         <p>Explore the items that others have found. You might spot your lost item here.</p>
@@ -197,7 +199,7 @@
                         <div class="icon">
                             <i class="bi bi-check-circle"></i>
                         </div>
-                        <a href="/claim-found-item" class="stretched-link">
+                        <a href="/found-items/claim-found-item" class="stretched-link">
                             <h3>Claim a Found Item</h3>
                         </a>
                         <p>If you find your lost item in our database, you can claim it and start the recovery process.</p>
@@ -211,7 +213,7 @@
                             <i class="bi bi-bar-chart-line"></i>
                         </div>
                         <a href="/track-report" class="stretched-link">
-                            <h3>Track Your Report</h3>
+                            <h3>RealTime Tracking</h3>
                         </a>
                         <p>Keep an eye on the status of your lost item report. Get updates on any matches or recoveries.</p>
                     </div>
@@ -227,19 +229,6 @@
                             <h3>Provide Item Information</h3>
                         </a>
                         <p>If you found an item, provide detailed information so others can identify and claim it.</p>
-                    </div>
-                </div><!-- End Service Item -->
-
-                <!-- Get Help from Admin -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
-                    <div class="service-item position-relative">
-                        <div class="icon">
-                            <i class="bi bi-person-circle"></i>
-                        </div>
-                        <a href="/contact-admin" class="stretched-link">
-                            <h3>Contact Admin</h3>
-                        </a>
-                        <p>Need help? Reach out to our admin team for assistance with your lost or found item issues.</p>
                     </div>
                 </div><!-- End Service Item -->
 

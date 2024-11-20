@@ -38,4 +38,10 @@ public class LostItemService {
     public void deleteLostItem(Long id) {
         lostItemRepository.deleteById(id);
     }
+
+
+    // Method to search Lost Items based on a keyword
+    public List<LostItem> searchLostItems(String keyword) {
+        return lostItemRepository.searchByKeyword(keyword);
+    }
 }

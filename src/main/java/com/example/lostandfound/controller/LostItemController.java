@@ -4,6 +4,7 @@ import com.example.lostandfound.entity.LostItem;
 import com.example.lostandfound.service.LostItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,12 +36,14 @@ public class LostItemController {
     public String index(Model model) {
         List<LostItem> lostItems = lostItemService.getAllLostItems();
         model.addAttribute("items", lostItems);
+        model.addAttribute("isRootUri", true); // Add the attribute for root URI
         return "lostItems"; // Return the specific view for lost items
     }
 
     @GetMapping("/post-lost-item")
     public String showPostLostItemForm(Model model) {
         model.addAttribute("lostItem", new LostItem());
+        model.addAttribute("isRootUri", true);
         model.addAttribute("categories", CATEGORIES);  // Pass the categories list to the view
         return "addLostItem"; // Thymeleaf template
     }
@@ -76,20 +79,24 @@ public class LostItemController {
     public String viewLostItem(@PathVariable("id") Long id, Model model) {
         LostItem lostItem = lostItemService.getLostItemById(id);
         model.addAttribute("item", lostItem);
+        model.addAttribute("isRootUri", true);
         return "viewLostItem"; // The view template to display the specific lost item
     }
 
     // Edit a specific lost item by ID
+    @Secured("ROLE_ADMIN")  // Ensures only ADMIN users can access this page
     @GetMapping("/edit-lost-item/{id}")
     public String editLostItem(@PathVariable("id") Long id, Model model) {
         LostItem lostItem = lostItemService.getLostItemById(id);
         model.addAttribute("lostItem", lostItem);
+        model.addAttribute("isRootUri", true);
         model.addAttribute("categories", CATEGORIES); // Pass the categories list for the dropdown in the edit form
         return "editLostItem"; // The view template to edit a lost item
     }
 
     // Save an updated lost item (handles image and other attributes)
     @PostMapping("/update-lost-item/{id}")
+    @Secured("ROLE_ADMIN")  // Ensures only ADMIN users can access this page
     public String updateLostItem(@PathVariable("id") Long id,
                                  @RequestParam("image") MultipartFile image,
                                  @RequestParam("name") String name,
@@ -116,9 +123,23 @@ public class LostItemController {
     }
 
     // Delete a specific lost item by ID
+    @Secured("ROLE_ADMIN")  // Ensures only ADMIN users can access this page
     @GetMapping("/delete-lost-item/{id}")
     public String deleteLostItem(@PathVariable("id") Long id) {
         lostItemService.deleteLostItem(id); // Delete the lost item by ID
         return "redirect:/lost-items"; // Redirect to the list of lost items after deletion
+    }
+
+    // Method to search Lost Items based on a query
+    @GetMapping("/search")
+    public String searchLostItems(@RequestParam("query") String query, Model model) {
+        // Call the service to fetch search results
+        List<LostItem> lostItems = lostItemService.searchLostItems(query);
+
+        // Add the results to the model
+        model.addAttribute("items", lostItems);
+        model.addAttribute("query", query);  // Add the search query for displaying in the input field
+
+        return "lostItems";  // Return the template for displaying results
     }
 }

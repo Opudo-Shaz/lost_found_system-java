@@ -24,7 +24,7 @@ public class LostItem extends Item {
     private String ownerContact;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateLost;
-    private Boolean isClaimed = Boolean.FALSE;
     private String locationLost;
+    private String ownerEmail;
 
 }

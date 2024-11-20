@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="~{fragments/head :: head}"></head>
 <body>
+<div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
     <h1 class="text-center mb-4">Found Item Details</h1>
 
@@ -13,25 +14,30 @@
         <p><strong>Location Found:</strong> <span th:text="${foundItem.locationFound}"></span></p>
         <p><strong>Finder's Contact:</strong> <span th:text="${foundItem.finderContact}"></span></p>
         <p><strong>Date Found:</strong> <span th:text="${foundItem.dateFound}"></span></p>
-        <p><strong>Claimed:</strong> <span th:text="${foundItem.isClaimed ? 'Yes' : 'No'}"></span></p>
+        <p><strong>Status:</strong>
+            <th:block th:switch="${foundItem.status.name}">
+                <span th:case="'UNCLAIMED'" th:text="${foundItem.status}" class="badge bg-info bg-lg rounded-pill">Unclaimed</span>
+                <span th:case="'PENDING'" th:text="${foundItem.status}" class="badge bg-warning rounded-pill">Pending</span>
+                <span th:case="'CLAIMED'" th:text="${foundItem.status}" class="badge bg-success rounded-pill">Claimed</span>
+                <span th:case="'DISPUTED'" th:text="${foundItem.status}" class="badge bg-danger rounded-pill">Disputed</span>
+            </th:block>
+        </p>
 
-        <!-- Conditionally display the Claim Item button if the foundItem is not claimed -->
-        <div th:if="${!foundItem.isClaimed}">
-            <a th:href="@{/found-items/claim}" class="btn btn-primary btn-lg btn-claim">Claim Item</a>
-        </div>
+        <!-- Only show the 'Claim Item' button if the item is Unclaimed -->
+        <a th:if="${foundItem.status.name == 'UNCLAIMED'}" th:href="@{'/found-items/claim/' + ${foundItem.id}}" class="btn btn-primary btn-lg btn-claim">Claim Item</a>
+
     </div>
 
     <!-- If the item is null, display a custom error message -->
     <div th:if="${foundItem == null}" class="alert alert-warning">
         <p>Item not found. Please check the ID and try again.</p>
     </div>
-
-    <!-- Button to go back to the list of found items -->
-    <a th:href="@{/found-items}" class="btn btn-secondary btn-lg btn-back">Back to List</a>
 </div>
 
-<div th:replace="~{fragments/landing-footer :: landing-footer}"></div>
+<!-- Button to go back to the list of found items -->
+<a th:href="@{/found-items}" class="btn btn-secondary btn-lg btn-back">Back to List</a>
 
+<div th:replace="~{fragments/landing-footer :: landing-footer}"></div>
 
 </body>
 </html>

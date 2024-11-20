@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Getter
@@ -20,8 +21,9 @@ public class Item {
     @Lob
     private byte[] image;
     private String current_location;
-    private LocalDate created_at;
+    private Timestamp created_at;
     private LocalDate updated_at;
+
 
     // Add any common fields if necessary
 }
