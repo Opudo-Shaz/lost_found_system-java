@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Member Information - Lost and Found System</title>
+    <title>User Management - Lost and Found System</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href = "@{/css/adminlite/adminlte.min.css}" rel="stylesheet">
 
@@ -16,7 +16,7 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
-                <h1 class="m-0">Member Information</h1>
+                <h1 class="m-0">User Management</h1>
             </div>
         </div>
         <section class="content">
@@ -25,31 +25,27 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
+                        <th>Username</th>
                         <th>Role</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="user : ${Users}">
+                    <tr th:each="user : ${users}">
                         <td th:text="${user.id}">1</td>
-                        <td th:text="${user.name}">John Doe</td>
-                        <td th:text="${user.email}">john@example.com</td>
+                        <td th:text="${user.username}">johndoe</td>
                         <td th:text="${user.role}">Admin</td>
+                        <td>
+                            <button class="btn btn-danger" th:onclick="'deleteUser(' + ${user.id} + ')'">Delete</button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
+                <button class="btn btn-primary" th:onclick="'window.location.href=\'/adduser\''">Add User</button>
             </div>
         </section>
     </div>
-    <footer class="main-footer">
-        <strong><a href="dashboard.html">Lost and Found System</a>.</strong>
-        All rights reserved 2024.
-        <div class="float-right d-none d-sm-inline-block">
-        </div>
-    </footer></div>
-<script th:src="@{/js/bootstrap.bundle.js}"></script>
-<script th:src="@{/css/adminlite/adminlte.min.js}"></script>
-
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
 </body>
 </html>

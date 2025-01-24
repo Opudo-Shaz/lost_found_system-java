@@ -7,7 +7,7 @@
 
         <!-- About Section -->
         <div class="col-lg-5 col-md-12 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
+          <a href="/" class="logo d-flex align-items-center">
             <span class="sitename">Patika Lost & Found</span>
           </a>
           <p>Welcome to Patika's Lost & Found System. We help you track, report, and claim lost items. Whether you lost something important or found an item, we are here to assist.</p>
@@ -54,9 +54,11 @@
         <div class="col-lg-3 col-md-12 footer-subscribe">
           <h4>Subscribe to Our Newsletter</h4>
           <p>Get the latest updates on lost and found items, news, and more.</p>
-          <form action="#" method="POST" class="subscribe-form">
+          <form th:action="@{/newsletter}" method="POST" class="subscribe-form">
             <div class="input-group">
-              <input type="email" class="form-control" placeholder="Enter your email" required>
+              <label>
+                <input type="email" class="form-control" placeholder="Enter your email" required>
+              </label>
               <button type="submit" class="btn btn-primary">Subscribe</button>
             </div>
           </form>

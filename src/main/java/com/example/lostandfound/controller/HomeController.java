@@ -80,10 +80,9 @@ public class HomeController {
     // Mapping for the Terms and Conditions page
     @GetMapping("/terms-and-conditions")
     public String showTermsAndConditions( Model model) {
-        // Return the view name for the terms and conditions page
         model.addAttribute("isRootUri", true);
 
-        return "terms-and-conditions";  // The name of the HTML file without the .html extension
+        return "terms-and-conditions";
     }
 
 }

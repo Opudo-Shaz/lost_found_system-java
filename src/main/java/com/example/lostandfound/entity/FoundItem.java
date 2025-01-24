@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@DiscriminatorValue("FOUND") // Optional: specify a discriminator value for clarity
+@DiscriminatorValue("FOUND")
 @Table(name = "found_items")
 public class FoundItem extends Item {
     @Id
@@ -28,6 +28,7 @@ public class FoundItem extends Item {
     private String claimedBy;
     private String finderEmail;
     private String claimerContact;
+    private String claimantEmail;
     private String claimerNote;
     private String finderImages;
     private String claimerImages;
@@ -35,13 +36,7 @@ public class FoundItem extends Item {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private FoundItemStatus status = FoundItemStatus.UNCLAIMED; // Default status is UNCLAIMED
-
-
-    public Long getItemId() {
-
-        return id;
-    }
-
+    private String disputeReason;
 
 
 }

@@ -26,9 +26,9 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private String user_contact;
+    private String Contact;
     private String address;
-    private String role = "USER";  // This will store the role (as a String)
+    private String role = "USER";
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
     private String avatarImage;

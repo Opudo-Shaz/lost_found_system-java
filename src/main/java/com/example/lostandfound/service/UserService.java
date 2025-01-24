@@ -9,54 +9,60 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
+    // Register a new user
     public void registerUser(User user) {
-        // Encrypt the user's password using BCryptPasswordEncoder
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
-
-        // Save the user to the repository
+        // Encrypt the password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
+    // Fetch all users
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-    public void logUserAvatarImage() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof CustomUserPrincipal principal) {
-            System.out.println("Avatar Image: " + principal.getAvatarImage());  // Log the avatar image
-        }
+    // Find a user by username
+    public Optional<User> findByUsername(String username) {
+        return Optional.ofNullable(userRepository.findByUsername(username));
     }
 
-    // Method to retrieve email by username
+    // Get email by username
     public String getEmailByUsername(String username) {
-        // Fetch the user by username
         User user = userRepository.findByUsername(username);
         if (user != null) {
-            return user.getEmail();  // Return the user's email
+            return user.getEmail();
         } else {
-
             throw new IllegalArgumentException("User not found with username: " + username);
         }
     }
 
-    public String getUserEmailByUsername(String finderUsername) {
-        return userRepository.findByUsername(finderUsername).getEmail();
+
+    // Get the current authenticated user
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); // Get the username of the logged-in user
+        return userRepository.findByUsername(username);
+    }
+
+    // Log user's avatar image (if applicable)
+    public void logUserAvatarImage() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof CustomUserPrincipal principal) {
+            System.out.println("Avatar Image: " + principal.getAvatarImage());
+        }
     }
 }

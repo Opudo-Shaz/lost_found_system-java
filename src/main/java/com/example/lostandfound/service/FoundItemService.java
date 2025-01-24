@@ -1,5 +1,6 @@
 package com.example.lostandfound.service;
 
+import com.example.lostandfound.controller.FoundItemController;
 import com.example.lostandfound.dtos.FoundItemDTO;
 import com.example.lostandfound.entity.FoundItem;
 import com.example.lostandfound.enums.FoundItemStatus;
@@ -11,11 +12,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class FoundItemService {
 
     private final FoundItemRepository foundItemRepository;
+    private static final Logger logger = LoggerFactory.getLogger(FoundItemService.class);
+
 
     // Constructor-based injection for FoundItemRepository and UserService
     @Autowired
@@ -112,4 +117,24 @@ public class FoundItemService {
         FoundItemDTO foundItemDTO = getFoundItemDTO(id);
         return foundItemDTO.getFinderEmail();  // This will return the email of the user
     }
+    public List<FoundItem> getPendingItems() {
+        List<FoundItem> items = foundItemRepository.findByStatus(FoundItemStatus.PENDING);
+        items.forEach(item -> logger.info("FoundItem: {}", item));
+        return items;
+    }
+
+
+    public void updateStatus(Long id, String status) {
+        FoundItem foundItem = foundItemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid item ID"));
+        foundItem.setStatus(FoundItemStatus.valueOf(status));
+        foundItemRepository.save(foundItem);
+    }
+
+    public void updateStatusToDisputed(Long id, String reason) {
+        FoundItem foundItem= foundItemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid item ID"));
+        foundItem.setStatus(FoundItemStatus.valueOf("DISPUTED"));
+        foundItem.setDisputeReason(reason);
+        foundItemRepository.save(foundItem);
+    }
+
 }

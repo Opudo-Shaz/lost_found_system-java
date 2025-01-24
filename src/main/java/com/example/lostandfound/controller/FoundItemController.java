@@ -3,6 +3,8 @@ package com.example.lostandfound.controller;
 import com.example.lostandfound.dtos.ClaimFoundItemDTO;
 import com.example.lostandfound.dtos.FoundItemDTO;
 import com.example.lostandfound.entity.FoundItem;
+import com.example.lostandfound.entity.User;
+import com.example.lostandfound.service.UserService;
 import com.example.lostandfound.service.EmailService;
 import com.example.lostandfound.service.FileUploadService;
 import com.example.lostandfound.service.FoundItemService;
@@ -29,13 +31,16 @@ public class FoundItemController {
     private final FoundItemService foundItemService;
     private final FileUploadService fileUploadService;
     private final EmailService emailService;
+    private final UserService userService;
+
 
     // Constructor-based injection for required services
     @Autowired
-    public FoundItemController(FoundItemService foundItemService, FileUploadService fileUploadService, EmailService emailService) {
+    public FoundItemController(FoundItemService foundItemService, FileUploadService fileUploadService, EmailService emailService, UserService userService) {
         this.foundItemService = foundItemService;
         this.fileUploadService = fileUploadService;
         this.emailService = emailService;
+        this.userService = userService;
     }
 
     // List of categories for the dropdown
@@ -57,14 +62,14 @@ public class FoundItemController {
         return "foundItems";
     }
 
-    // Show form to post a new found item
+    // Show form to post a new-found item
     @GetMapping("/post-found-item")
     public String showPostFoundItemForm(Model model) {
         logger.info("Displaying form to post a new found item.");
         model.addAttribute("foundItem", new FoundItem());
         model.addAttribute("categories", CATEGORIES);
         model.addAttribute("isRootUri", true);
-        return "addFoundItem"; // Thymeleaf template for posting new found item
+        return "addFoundItem"; // Thymeleaf template for posting new-found item
     }
 
     // Submit a new-found item
@@ -93,7 +98,7 @@ public class FoundItemController {
         } catch (Exception e) {
             logger.error("Found item with ID {} not found.", id, e);
             model.addAttribute("error", "Found item not found.");
-            return "errorPage"; // Show error page if not found
+            return "error"; // Show error page if not found
         }
     }
 
@@ -168,6 +173,7 @@ public class FoundItemController {
             // Retrieve the FoundItemDTO by its ID
             FoundItemDTO foundItemDTO = foundItemService.getFoundItemDTO(id);
             String finderEmail = foundItemDTO.getFinderEmail();
+            String finderContact = foundItemDTO.getFinderContact();
 
             if (finderEmail == null || finderEmail.isEmpty()) {
                 throw new IllegalArgumentException("Finder's email is missing or invalid.");
@@ -182,39 +188,46 @@ public class FoundItemController {
             claimerImages.add(imagePath);
             claimerImages.add(receiptPath); // Add receipt path to the images list
 
-            // Update the found item, set status to PENDING, and set the claimedBy username
-            foundItemService.claimFoundItem(id, claimDTO.getClaimerNote(), claimDTO.getClaimedBy(), claimerImages);
+            // Get the current user's details
+            User currentUser = userService.getCurrentUser();
 
-            // Prepare the claimer contact (assuming it's part of ClaimFoundItemDTO)
-            String claimerContact = claimDTO.getClaimerContact(); // Assuming claimer contact is available in the DTO
+            String claimantEmail = currentUser.getEmail(); // Email of the claimant
+            String claimantContact = currentUser.getContact(); // Contact of the claimant
 
-            // Send email notification to the finder
-            emailService.sendClaimNotificationEmail(
-                    finderEmail,
-                    claimDTO.getClaimedBy(),
-                    foundItemDTO.getName(),
-                    claimDTO.getClaimerContact(),
+            // Update the found item
+            foundItemService.claimFoundItem(
+                    id,
                     claimDTO.getClaimerNote(),
-                    String.join(", ", claimerImages) // Convert the list of images to a comma-separated string
+                    currentUser.getUsername(), // Authenticated user as claimant
+                    claimerImages
             );
 
-            // Send email notification to the claimant
+            // Send email notification to the finder with claim details
+            emailService.sendClaimNotificationEmail(
+                    finderEmail, // Finder's email
+                    currentUser.getUsername(), // Claimer's username
+                    foundItemDTO.getName(), // Item name
+                    claimantContact, // Claimer's contact
+                    claimDTO.getClaimerNote(), // Note from the claimer
+                    String.join(", ", claimerImages) // Comma-separated list of claimer images
+            );
+
+            // Send email notification to the claimant with finder details
             emailService.sendClaimantNotificationEmail(
-                    claimDTO.getClaimedBy(), // Assuming this is the claimant's email
+                    claimantEmail,
                     foundItemDTO.getName(),
-                    foundItemDTO.getFinderContact(), // Assuming the finder contact is part of FoundItemDTO
-                    claimDTO.getLocationFound() // Assuming the locationFound is part of ClaimFoundItemDTO
+                    finderContact, // Finder's contact details
+                    finderEmail, // Finder's email
+                    claimDTO.getLocationFound() // Location where the item was found
             );
 
-            // Build success message
+            // Prepare a success message
             String successMessage = String.format(
-                    "Claim submitted successfully! Reach out to the claimant to reunite with your item. " +
-                            "The item '%s' was claimed by %s. The claimer's contact is %s, email is %s, " +
-                            "and the finder is located at %s.",
+                    "Claim submitted successfully! You can now contact the finder to reunite with your item. " +
+                            "The item '%s' was found by a user reachable at Contact: %s, Email: %s, and the location where it was found is %s.",
                     foundItemDTO.getName(),
-                    claimDTO.getClaimedBy(),
-                    claimDTO.getClaimerContact(),
-                    foundItemDTO.getFinderEmail(),
+                    finderContact,
+                    finderEmail,
                     claimDTO.getLocationFound()
             );
 
@@ -223,12 +236,12 @@ public class FoundItemController {
             redirectAttributes.addFlashAttribute("success", successMessage);
 
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("Error submitting claim for item ID: {}", id, e);
             redirectAttributes.addFlashAttribute("error", "Error submitting claim.");
         }
         return "redirect:/found-items";
     }
+
 
 
     // Method to search Found Items based on a query
