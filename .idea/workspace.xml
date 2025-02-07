@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5bde2921-0919-48d3-b154-b2ec797d0074" name="Changes" comment="added send email service" />
+    <list default="true" id="5bde2921-0919-48d3-b154-b2ec797d0074" name="Changes" comment="added send email service">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lostandfound-docker/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lostandfound-docker/lostandfound-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +29,7 @@
         <option value="Enum" />
         <option value="HTML File" />
         <option value="Class" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -140,8 +150,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
       </set>
     </attachedChunks>
   </component>
@@ -172,7 +182,11 @@
       <workItem from="1735889796758" duration="1400000" />
       <workItem from="1736923366805" duration="1917000" />
       <workItem from="1737136276981" duration="3734000" />
-      <workItem from="1737710256246" duration="3346000" />
+      <workItem from="1737710256246" duration="3745000" />
+      <workItem from="1737956578674" duration="7272000" />
+      <workItem from="1738524714371" duration="780000" />
+      <workItem from="1738608556701" duration="11921000" />
+      <workItem from="1738916316091" duration="8120000" />
     </task>
     <task id="LOCAL-00001" summary="added send email service">
       <option name="closed" value="true" />
