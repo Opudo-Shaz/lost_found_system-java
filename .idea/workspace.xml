@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5bde2921-0919-48d3-b154-b2ec797d0074" name="Changes" comment="added send email service">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lostandfound-docker/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lostandfound-docker/lostandfound-0.0.1-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +179,7 @@
       <workItem from="1737956578674" duration="7272000" />
       <workItem from="1738524714371" duration="780000" />
       <workItem from="1738608556701" duration="11921000" />
-      <workItem from="1738916316091" duration="8120000" />
+      <workItem from="1738916316091" duration="9238000" />
     </task>
     <task id="LOCAL-00001" summary="added send email service">
       <option name="closed" value="true" />
