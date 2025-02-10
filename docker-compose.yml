@@ -1,16 +1,14 @@
+version: "3.8"
 
 services:
   mysql-container:
     image: mysql:latest
     container_name: mysql-container
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: shara2010@
-      MYSQL_DATABASE: LostAndFound_db
-      MYSQL_USER: shaz
-      MYSQL_PASSWORD: aris0007@
+    env_file:
+      - .env
     ports:
-      - "3307:3306"  # Host machine port 3307 → MySQL container port 3306
+      - "3307:3306"
     networks:
       - lostandfound-network
     volumes:
@@ -23,13 +21,11 @@ services:
     depends_on:
       - mysql-container
     ports:
-      - "8080:8080"  # Expose Spring Boot app on port 8080
+      - "8080:8080"
     networks:
       - lostandfound-network
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container:3306/LostAndFound_db?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: shaz
-      SPRING_DATASOURCE_PASSWORD: aris0007@
+    env_file:
+      - .env
 
 networks:
   lostandfound-network:
