@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5bde2921-0919-48d3-b154-b2ec797d0074" name="Changes" comment="added .env to .gitignore">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+    <list default="true" id="5bde2921-0919-48d3-b154-b2ec797d0074" name="Changes" comment="added .env file to .gitignore">
+      <change beforePath="$PROJECT_DIR$/..gitignore.swp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,6 +182,7 @@
       <workItem from="1738524714371" duration="780000" />
       <workItem from="1738608556701" duration="11921000" />
       <workItem from="1738916316091" duration="9238000" />
+      <workItem from="1739379942461" duration="1143000" />
     </task>
     <task id="LOCAL-00001" summary="added send email service">
       <option name="closed" value="true" />
@@ -262,7 +264,23 @@
       <option name="project" value="LOCAL" />
       <updated>1739268790256</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added .env file to .gitignore">
+      <option name="closed" value="true" />
+      <created>1739269066123</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1739269066123</updated>
+    </task>
+    <task id="LOCAL-00012" summary="added .env file to .gitignore">
+      <option name="closed" value="true" />
+      <created>1739269298703</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1739269298703</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +311,8 @@
     <MESSAGE value="Track .jar file using Git LFS" />
     <MESSAGE value="Removed large .jar file from Git history" />
     <MESSAGE value="added .env to .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="added .env to .gitignore" />
+    <MESSAGE value="added .env file to .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="added .env file to .gitignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
